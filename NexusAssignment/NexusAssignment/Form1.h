@@ -1,4 +1,5 @@
 #pragma once
+#include "Engine.h"
 
 
 namespace NexusAssignment {
@@ -9,9 +10,13 @@ namespace NexusAssignment {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Threading;
 
 
 
+	
+
+	
 	/// <summary>
 	/// Summary for Form1
 	///
@@ -23,13 +28,13 @@ namespace NexusAssignment {
 	/// </summary>
 	public ref class Form1 : public System::Windows::Forms::Form
 	{
-		
-		
-
+	
+				
 
 	public:
 		
-		
+		GameBoard gameboard;
+		Engine engine(GameBoard gameboard);
 
 		Form1(void)
 		{
@@ -38,7 +43,7 @@ namespace NexusAssignment {
 			//TODO: Add the constructor code here
 			//			
 			
-				
+			
 		}
 
 	protected:
@@ -95,7 +100,6 @@ namespace NexusAssignment {
 			this->pictureBox1->Size = System::Drawing::Size(294, 349);
 			this->pictureBox1->TabIndex = 1;
 			this->pictureBox1->TabStop = false;
-			
 			// 
 			// timer1
 			// 
@@ -118,13 +122,23 @@ namespace NexusAssignment {
 #pragma endregion
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {	
 					
-				pictureBox1->Image = Image::FromFile("img/green.png");
+				
+					//pictureBox1->Image = Image::FromFile("img/green.png");
+					
+					
+				 
+					//pictureBox1->Image =  Image::FromFile("img/blue.png");
+
+				
+					
+				
 			 }
 
 
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 
 				 timer1->Enabled =! timer1->Enabled;
+				 
 			 }
 
 
