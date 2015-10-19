@@ -8,24 +8,27 @@ using namespace System::Drawing;
 
 public ref class Engine
 {
-	GameBoard gameboard;
-
-	static array<Image^>^ images = { 
-		(Image^)Image::FromFile( "img\\free.png"),
-		(Image^)Image::FromFile( "img\\greed.png"),
-		(Image^)Image::FromFile( "img\\blue.png"),
-		(Image^)Image::FromFile( "img\\red.png"),
-		(Image^)Image::FromFile( "img\\yellow.png"),
-		(Image^)Image::FromFile( "img\\purple.png")
-	};
+private:
 	
-	static void imageLoader();
+	GameBoard^ gameboard;
+	Graphics^ graphics;	
 
+	void drawBoard();
+	
 public:
-	Engine(GameBoard gameboard);
+	Engine(GameBoard ^gb, Graphics ^g);
 
-	static void initEngine();
+	void draw(int, int);
+	void start();
 
+	static array<Bitmap^>^ images = { 
+		(Bitmap^)Image::FromFile( "img\\free.png"),
+		(Bitmap^)Image::FromFile( "img\\green.png"),
+		(Bitmap^)Image::FromFile( "img\\blue.png"),
+		(Bitmap^)Image::FromFile( "img\\red.png"),
+		(Bitmap^)Image::FromFile( "img\\yellow.png"),
+		(Bitmap^)Image::FromFile( "img\\purple.png")
+	};
 	
 	
 

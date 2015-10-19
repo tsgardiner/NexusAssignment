@@ -3,30 +3,24 @@
 #ifndef	_GAMEBOARD_
 #define _GAMEBOARD_
 
+
 #define BOARD_WIDTH 9
 #define BOARD_HEIGHT 9
+#define IMG_SIZE 40
 
-using namespace System::Drawing;
+public enum class Shapes {positionFree, green, blue, red, yellow, purple, selected};
 
 public ref class GameBoard
 {
-
-	//Can't use enum or int in managed class//can't inclued unmanaged class in managed class.
-	//enum {positionFree, green, blue, red, yellow, purple, selected};
-	//int board[BOARD_HEIGHT][BOARD_WIDTH];
-	
-	static int positionFree = 0;
-	static array<array<int>^>^ board = gcnew array<array<int>^>(2);
+private:
+	array<int,2>^ board; 
 
 public:
 	GameBoard(void);
 
 	void initGameBoard();
-	void draw();
-
-	
+	int checkCellType(int positionX, int positionY);
 
 
-	
 };
 #endif

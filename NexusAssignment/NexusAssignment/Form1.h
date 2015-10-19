@@ -2,6 +2,7 @@
 #include "Engine.h"
 
 
+
 namespace NexusAssignment {
 
 	using namespace System;
@@ -11,11 +12,6 @@ namespace NexusAssignment {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Threading;
-
-
-
-	
-
 	
 	/// <summary>
 	/// Summary for Form1
@@ -28,14 +24,7 @@ namespace NexusAssignment {
 	/// </summary>
 	public ref class Form1 : public System::Windows::Forms::Form
 	{
-	
-				
-
 	public:
-		
-		GameBoard gameboard;
-		Engine engine(GameBoard gameboard);
-
 		Form1(void)
 		{
 			InitializeComponent();
@@ -43,7 +32,9 @@ namespace NexusAssignment {
 			//TODO: Add the constructor code here
 			//			
 			
-			
+			//Graphics^ graphics;
+			 engine = gcnew Engine(%gameboard, pictureBox1->CreateGraphics());
+				
 		}
 
 	protected:
@@ -59,9 +50,12 @@ namespace NexusAssignment {
 		}
 	private: System::Windows::Forms::Button^  button1;
 	protected: 
-	private: System::Windows::Forms::PictureBox^  pictureBox1;
+
 	private: System::Windows::Forms::Timer^  timer1;
+	private: System::Windows::Forms::PictureBox^  pictureBox1;
 	private: System::ComponentModel::IContainer^  components;
+			 GameBoard gameboard;
+			 Engine^ engine;
 
 	private:
 		/// <summary>
@@ -77,44 +71,39 @@ namespace NexusAssignment {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Form1::typeid));
 			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(433, 168);
+			resources->ApplyResources(this->button1, L"button1");
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(94, 76);
-			this->button1->TabIndex = 0;
-			this->button1->Text = L"Start";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &Form1::button1_Click);
-			// 
-			// pictureBox1
-			// 
-			this->pictureBox1->Location = System::Drawing::Point(19, 20);
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(294, 349);
-			this->pictureBox1->TabIndex = 1;
-			this->pictureBox1->TabStop = false;
 			// 
 			// timer1
 			// 
 			this->timer1->Tick += gcnew System::EventHandler(this, &Form1::timer1_Tick);
 			// 
+			// pictureBox1
+			// 
+			resources->ApplyResources(this->pictureBox1, L"pictureBox1");
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->TabStop = false;
+			this->pictureBox1->Click += gcnew System::EventHandler(this, &Form1::pictureBox1_Click);
+			// 
 			// Form1
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(565, 397);
 			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->button1);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Name = L"Form1";
-			this->Text = L"Form1";
-			this->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::Form1_MouseClick);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 
@@ -123,14 +112,11 @@ namespace NexusAssignment {
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {	
 					
 				
-					//pictureBox1->Image = Image::FromFile("img/green.png");
-					
-					
-				 
-					//pictureBox1->Image =  Image::FromFile("img/blue.png");
-
+				//This works
+				//pictureBox1->Image = (Image^)Engine::images[(int)Shapes::red];
 				
-					
+				
+				engine->start();
 				
 			 }
 
@@ -140,12 +126,13 @@ namespace NexusAssignment {
 				 timer1->Enabled =! timer1->Enabled;
 				 
 			 }
+	private: System::Void pictureBox1_Click(System::Object^  sender, System::EventArgs^  e) {
+
+				int x = ((MouseEventArgs^)e)->X / IMG_SIZE;
+				int y = ((MouseEventArgs^)e)->Y / IMG_SIZE;
 
 
-	private: System::Void Form1_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-
-
-			 }
+		 }
 };
 }
 
