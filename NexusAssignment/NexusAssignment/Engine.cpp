@@ -7,12 +7,9 @@ Engine::Engine(GameBoard ^gb, Graphics^ g)
 {
 	this->gameboard = gb;
 	this->graphics = g;	
-
-	
-
 }
 
-void Engine::start()
+void Engine::init()
 {
 	gameboard->initGameBoard();
 	drawBoard();
@@ -23,7 +20,6 @@ void Engine::draw(int pX, int pY)
 	TextureBrush^ texture = gcnew TextureBrush(images[gameboard->checkCellType(pX, pY)]);
 	graphics->FillRectangle(texture, pX * IMG_SIZE, pY * IMG_SIZE, IMG_SIZE, IMG_SIZE);
 	delete texture;
-	//((Image^)images[(int)Shapes::positionFree], pX, pY);
 }
 
 void Engine::drawBoard()
@@ -34,10 +30,23 @@ void Engine::drawBoard()
 		{
 				int pj = j;
 				int pi = i;
-				draw(pj, pi);			
+				draw(pi, pj);			
 		}
-	}
-	
+	}	
 }
 
 
+void Engine::selectOrMove(int x, int y)
+{
+
+
+}
+
+void Engine::draw(bool selected)
+{
+	drawBoard();
+	if(selected && selectedCell->X && selectedCell->Y !=0)
+	{
+		draw(selectedCell->X, selectedCell->Y);
+	}
+}

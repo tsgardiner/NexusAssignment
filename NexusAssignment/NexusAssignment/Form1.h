@@ -1,8 +1,6 @@
 #pragma once
 #include "Engine.h"
 
-
-
 namespace NexusAssignment {
 
 	using namespace System;
@@ -33,7 +31,7 @@ namespace NexusAssignment {
 			//			
 			
 			//Graphics^ graphics;
-			 engine = gcnew Engine(%gameboard, pictureBox1->CreateGraphics());
+			engine = gcnew Engine(%gameboard, pictureBox1->CreateGraphics());
 				
 		}
 
@@ -107,32 +105,28 @@ namespace NexusAssignment {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 
+			
+
 		}
 #pragma endregion
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {	
 					
-				
-				//This works
-				//pictureBox1->Image = (Image^)Engine::images[(int)Shapes::red];
-				
-				
-				engine->start();
-				
-			 }
-
-
+			
+			}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 
+				 engine->init();
 				 timer1->Enabled =! timer1->Enabled;
 				 
-			 }
+			}
 	private: System::Void pictureBox1_Click(System::Object^  sender, System::EventArgs^  e) {
 
 				int x = ((MouseEventArgs^)e)->X / IMG_SIZE;
 				int y = ((MouseEventArgs^)e)->Y / IMG_SIZE;
-
-
-		 }
+				gameboard.addBall(x, y, (int)Shapes::red);
+				engine->draw(x, y);
+				//gameboard.checkLines(x, y ,(int)Shapes::red);
+			}
 };
 }
 

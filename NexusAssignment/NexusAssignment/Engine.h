@@ -6,7 +6,7 @@
 
 using namespace System::Drawing;
 
-public ref class Engine
+ref class Engine
 {
 private:
 	
@@ -14,12 +14,17 @@ private:
 	Graphics^ graphics;	
 
 	void drawBoard();
-	
+
 public:
 	Engine(GameBoard ^gb, Graphics ^g);
 
 	void draw(int, int);
-	void start();
+	void init();
+	void draw(bool selected);
+	void selectOrMove(int,int);
+	Point^ selectedCell;
+
+	
 
 	static array<Bitmap^>^ images = { 
 		(Bitmap^)Image::FromFile( "img\\free.png"),
@@ -29,8 +34,7 @@ public:
 		(Bitmap^)Image::FromFile( "img\\yellow.png"),
 		(Bitmap^)Image::FromFile( "img\\purple.png")
 	};
-	
-	
+
 
 };
 #endif
