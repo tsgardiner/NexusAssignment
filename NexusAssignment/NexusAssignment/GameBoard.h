@@ -8,7 +8,7 @@
 #define BOARD_HEIGHT 9
 #define IMG_SIZE 40
 
-#include <vector>  //Can't use vectors in or with managed anything.
+#include <vector>  
 
 using namespace System;
 using namespace System::Collections;
@@ -22,26 +22,25 @@ struct Cell
 	int y;
 };
 
+static std::vector<Cell> lineToDelete;
+static std::vector<Cell> freeCells;
+
 ref class GameBoard
 {
 private:
 	array<int,2>^ board;
 
 public:
-	GameBoard(void);
 
 	void initGameBoard();
 	int checkCellType(int positionX, int positionY);
 	void addBall(int pX, int pY , int type);
-	//array<Cell>^ freeCells;  //Can't use unmanaged struct in managed class or array
-
-
 
 	//Delete lines ideas that didn't work
-	//void deleteLines(array<Point^>^ line);
+	void deleteLines(std::vector<Cell> toDelete);
+	void checkLines(int, int, int);
 	//array<Point^>^ line;
-	//void deleteLines(array<int, 2>^ line);
-	//void checkLines(int, int, int);
+	//void deleteLines(array<int, 2>^ line);	
 	//array<int, 2>^ line;
 
 };

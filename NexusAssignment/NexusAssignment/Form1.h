@@ -111,7 +111,7 @@ namespace NexusAssignment {
 #pragma endregion
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {	
 					
-			
+				 engine->init();
 			}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 
@@ -125,7 +125,8 @@ namespace NexusAssignment {
 				int y = ((MouseEventArgs^)e)->Y / IMG_SIZE;
 				gameboard.addBall(x, y, (int)Shapes::red);
 				engine->draw(x, y);
-				//gameboard.checkLines(x, y ,(int)Shapes::red);
+				gameboard.checkLines(x, y ,(int)Shapes::red);
+				
 			}
 };
 }

@@ -7,11 +7,12 @@ Engine::Engine(GameBoard ^gb, Graphics^ g)
 {
 	this->gameboard = gb;
 	this->graphics = g;	
+	
+	gameboard->initGameBoard();
 }
 
 void Engine::init()
 {
-	gameboard->initGameBoard();
 	drawBoard();
 }
 
@@ -28,9 +29,7 @@ void Engine::drawBoard()
 	{
 		for(int j = 0; j < BOARD_WIDTH; j++)
 		{
-				int pj = j;
-				int pi = i;
-				draw(pi, pj);			
+			draw(i, j);			
 		}
 	}	
 }
