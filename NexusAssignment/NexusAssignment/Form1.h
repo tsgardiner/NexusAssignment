@@ -128,27 +128,27 @@ namespace NexusAssignment {
 			}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 
-				 engine->init();
-				 timer1->Enabled =! timer1->Enabled;
-				 
+				 //engine->init();
+				 timer1->Enabled = true;
+				 engine->generateBalls();
 			}
 	private: System::Void pictureBox1_Click(System::Object^  sender, System::EventArgs^  e) {
 
 				int x = ((MouseEventArgs^)e)->X / IMG_SIZE;
-				int y = ((MouseEventArgs^)e)->Y / IMG_SIZE;
-				//gameboard.addBall(x, y, (int)Shapes::red);
+				int y = ((MouseEventArgs^)e)->Y / IMG_SIZE;				
 				engine->selectOrMove(x, y);
 				selected = true;
 
-
+				//Code to add ball on mouse click
+				//gameboard.addBall(x, y, (int)Shapes::red);
 				//gameboard.checkLines(x, y ,(int)Shapes::red);
 				//gameboard.updateRollBack();
-				//engine->draw(x, y);
-				
+				//engine->draw(x, y);  				
 			}
 	private: System::Void undoButton_Click(System::Object^  sender, System::EventArgs^  e) {
 
 			 gameboard.boardRollBack();
+			 gameboard.updateFreeCells();
 		 }
 };
 }

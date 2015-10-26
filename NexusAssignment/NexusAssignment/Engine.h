@@ -13,7 +13,9 @@ ref class Engine
 private:
 	
 	GameBoard^ gameboard;
-	Graphics^ graphics;	
+	Graphics^ graphics;
+	Random^ random;
+	Point^ selectedCell;
 
 	void drawBoard();
 
@@ -24,17 +26,17 @@ public:
 	void init();
 	void drawSelected(bool selected);
 	void selectOrMove(int,int);
-	
-	Point^ selectedCell;
-	
+	void generateBalls();
 
+	
 	static array<Bitmap^>^ images = { 
 		(Bitmap^)Image::FromFile( "img\\free.png"),
 		(Bitmap^)Image::FromFile( "img\\green.png"),
 		(Bitmap^)Image::FromFile( "img\\blue.png"),
 		(Bitmap^)Image::FromFile( "img\\red.png"),
 		(Bitmap^)Image::FromFile( "img\\yellow.png"),
-		(Bitmap^)Image::FromFile( "img\\purple.png")
+		(Bitmap^)Image::FromFile( "img\\purple.png"),
+		(Bitmap^)Image::FromFile( "img\\selected.png")
 	};
 
 

@@ -35,6 +35,21 @@ void Engine::drawBoard()
 	}	
 }
 
+void Engine::generateBalls()
+{
+	random = gcnew Random();
+	for(int i = 0; i < 3 && gameboard->getNumFreeCells() > 0; i++)
+	{
+	int type = random->Next(1, 6);
+	int point = random->Next(gameboard->getNumFreeCells());
+	Cell freeCell = gameboard->getFreeCell(point);
+	gameboard->addBall(freeCell.x, freeCell.y, type);
+	gameboard->checkLines(freeCell.x, freeCell.y, type);	
+	}
+	gameboard->updateRollBack();
+	gameboard->updateFreeCells();
+}
+
 
 void Engine::selectOrMove(int x, int y)
 {

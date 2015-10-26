@@ -37,12 +37,15 @@ private:
 public:
 
 	void initGameBoard();
-	
+	int getNumFreeCells();
+	Cell getFreeCell(int); 
 	int checkCellType(int positionX, int positionY);
 	void addBall(int pX, int pY , int type); 
 	void deleteLines(std::vector<Cell> toDelete);
 	void checkLines(int, int, int);
+	void move(Cell, Cell);
 	void updateRollBack();
 	void boardRollBack();
+	void updateFreeCells();
 };
 #endif
