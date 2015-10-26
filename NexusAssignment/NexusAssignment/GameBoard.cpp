@@ -14,16 +14,47 @@ void GameBoard::initGameBoard()
 			freeCells.push_back(ball);
 		}
 	}
+
+	boardStates  = gcnew boardsArray(4);
+	for(int i =0; i < boardStates->Length; i++)
+	{
+	boardStates[i] = gcnew array<int,2>(BOARD_HEIGHT ,BOARD_WIDTH);	
+	}
 }
+
+
 
 int GameBoard::checkCellType(int pX, int pY)
 {  	
-	return board[pX,pY];
+	return board[pX, pY];
 }
 
 void GameBoard::addBall(int pX, int pY, int type)
-{	
+{		
 	board[pX,pY] = type;
+}
+//Seems to work
+void GameBoard::updateRollBack()
+{	
+	boardStates[2]->Copy(boardStates[2], 0, boardStates[3], 0, 81);
+	boardStates[1]->Copy(boardStates[1], 0, boardStates[2], 0, 81);
+	boardStates[0]->Copy(boardStates[0], 0, boardStates[1], 0, 81);
+	board->Copy(board, 0, boardStates[0], 0, 81);	
+}
+
+void GameBoard::boardRollBack()
+{
+	
+	if(rollBackCount < 3)
+	{
+		boardStates[rollBackCount]->Copy(boardStates[rollBackCount], 0, board, 0 , 81);
+		rollBackCount++;
+	}
+	if (rollBackCount == 3)
+	{
+		updateRollBack();
+		rollBackCount = 1;
+	}
 }
 
 //Check for lines around added ball and call delete if there is a line of five.
@@ -134,8 +165,7 @@ void GameBoard::checkLines(int x, int y, int type)
 		deleteLines(lineToDelete);
 	}
 }
-
-  
+//Delete line and put free cells into vector 
 void GameBoard::deleteLines(std::vector<Cell> toDelete)
 {	
 	for(unsigned int i =0; i < toDelete.size(); i++)

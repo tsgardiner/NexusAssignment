@@ -14,6 +14,7 @@ Engine::Engine(GameBoard ^gb, Graphics^ g)
 void Engine::init()
 {
 	drawBoard();
+	
 }
 
 void Engine::draw(int pX, int pY)
@@ -41,7 +42,7 @@ void Engine::selectOrMove(int x, int y)
 
 }
 
-void Engine::draw(bool selected)
+void Engine::drawSelected(bool selected)
 {
 	drawBoard();
 	if(selected && selectedCell->X && selectedCell->Y !=0)

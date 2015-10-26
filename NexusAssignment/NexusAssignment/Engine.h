@@ -6,6 +6,8 @@
 
 using namespace System::Drawing;
 
+static bool selected = false;
+
 ref class Engine
 {
 private:
@@ -20,10 +22,10 @@ public:
 
 	void draw(int, int);
 	void init();
-	void draw(bool selected);
+	void drawSelected(bool selected);
 	void selectOrMove(int,int);
+	
 	Point^ selectedCell;
-
 	
 
 	static array<Bitmap^>^ images = { 

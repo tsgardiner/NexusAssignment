@@ -46,13 +46,19 @@ namespace NexusAssignment {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Button^  startButton;
+	protected: 
+
 	protected: 
 
 	private: System::Windows::Forms::Timer^  timer1;
 	private: System::Windows::Forms::PictureBox^  pictureBox1;
 	private: System::ComponentModel::IContainer^  components;
 			 GameBoard gameboard;
+
+	private: System::Windows::Forms::Button^  undoButton;
+
+
 			 Engine^ engine;
 
 	private:
@@ -70,18 +76,19 @@ namespace NexusAssignment {
 		{
 			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Form1::typeid));
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->startButton = (gcnew System::Windows::Forms::Button());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->undoButton = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
-			// button1
+			// startButton
 			// 
-			resources->ApplyResources(this->button1, L"button1");
-			this->button1->Name = L"button1";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &Form1::button1_Click);
+			resources->ApplyResources(this->startButton, L"startButton");
+			this->startButton->Name = L"startButton";
+			this->startButton->UseVisualStyleBackColor = true;
+			this->startButton->Click += gcnew System::EventHandler(this, &Form1::button1_Click);
 			// 
 			// timer1
 			// 
@@ -94,18 +101,24 @@ namespace NexusAssignment {
 			this->pictureBox1->TabStop = false;
 			this->pictureBox1->Click += gcnew System::EventHandler(this, &Form1::pictureBox1_Click);
 			// 
+			// undoButton
+			// 
+			resources->ApplyResources(this->undoButton, L"undoButton");
+			this->undoButton->Name = L"undoButton";
+			this->undoButton->UseVisualStyleBackColor = true;
+			this->undoButton->Click += gcnew System::EventHandler(this, &Form1::undoButton_Click);
+			// 
 			// Form1
 			// 
 			resources->ApplyResources(this, L"$this");
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->Controls->Add(this->undoButton);
 			this->Controls->Add(this->pictureBox1);
-			this->Controls->Add(this->button1);
+			this->Controls->Add(this->startButton);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Name = L"Form1";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
-
-			
 
 		}
 #pragma endregion
@@ -123,11 +136,20 @@ namespace NexusAssignment {
 
 				int x = ((MouseEventArgs^)e)->X / IMG_SIZE;
 				int y = ((MouseEventArgs^)e)->Y / IMG_SIZE;
-				gameboard.addBall(x, y, (int)Shapes::red);
-				engine->draw(x, y);
-				gameboard.checkLines(x, y ,(int)Shapes::red);
+				//gameboard.addBall(x, y, (int)Shapes::red);
+				engine->selectOrMove(x, y);
+				selected = true;
+
+
+				//gameboard.checkLines(x, y ,(int)Shapes::red);
+				//gameboard.updateRollBack();
+				//engine->draw(x, y);
 				
 			}
+	private: System::Void undoButton_Click(System::Object^  sender, System::EventArgs^  e) {
+
+			 gameboard.boardRollBack();
+		 }
 };
 }
 

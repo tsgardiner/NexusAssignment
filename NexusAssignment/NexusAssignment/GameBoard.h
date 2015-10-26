@@ -24,24 +24,25 @@ struct Cell
 
 static std::vector<Cell> lineToDelete;
 static std::vector<Cell> freeCells;
+typedef array<array<int,2>^> boardsArray;
 
 ref class GameBoard
 {
 private:
 	array<int,2>^ board;
+	
+	boardsArray^ boardStates;
+	static int rollBackCount = 1;
 
 public:
 
 	void initGameBoard();
+	
 	int checkCellType(int positionX, int positionY);
-	void addBall(int pX, int pY , int type);
-
-	//Delete lines ideas that didn't work
+	void addBall(int pX, int pY , int type); 
 	void deleteLines(std::vector<Cell> toDelete);
 	void checkLines(int, int, int);
-	//array<Point^>^ line;
-	//void deleteLines(array<int, 2>^ line);	
-	//array<int, 2>^ line;
-
+	void updateRollBack();
+	void boardRollBack();
 };
 #endif
