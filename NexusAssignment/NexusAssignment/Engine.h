@@ -6,7 +6,8 @@
 
 using namespace System::Drawing;
 
-static bool selected = false;
+static bool selected;
+
 
 ref class Engine
 {
@@ -15,7 +16,8 @@ private:
 	GameBoard^ gameboard;
 	Graphics^ graphics;
 	Random^ random;
-	Point^ selectedCell;
+	//Point^ selectedCell;   Tried using type Point^ it just doesn't work for anything and can't be set to 0.
+	
 
 	void drawBoard();
 
@@ -25,9 +27,9 @@ public:
 	void draw(int, int);
 	void init();
 	void drawSelected(bool selected);
-	void selectOrMove(int,int);
+	void selectOrMove(int, int);
 	void generateBalls();
-
+	Cell *selectedCell;
 	
 	static array<Bitmap^>^ images = { 
 		(Bitmap^)Image::FromFile( "img\\free.png"),

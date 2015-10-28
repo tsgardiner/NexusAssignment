@@ -1,6 +1,9 @@
 #pragma once
 #include "Engine.h"
 
+
+int score;
+
 namespace NexusAssignment {
 
 	using namespace System;
@@ -135,9 +138,10 @@ namespace NexusAssignment {
 	private: System::Void pictureBox1_Click(System::Object^  sender, System::EventArgs^  e) {
 
 				int x = ((MouseEventArgs^)e)->X / IMG_SIZE;
-				int y = ((MouseEventArgs^)e)->Y / IMG_SIZE;				
-				engine->selectOrMove(x, y);
+				int y = ((MouseEventArgs^)e)->Y / IMG_SIZE;
 				selected = true;
+				engine->selectOrMove(x, y);
+				
 
 				//Code to add ball on mouse click
 				//gameboard.addBall(x, y, (int)Shapes::red);

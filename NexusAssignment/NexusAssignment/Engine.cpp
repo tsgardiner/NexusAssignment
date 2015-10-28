@@ -14,7 +14,8 @@ Engine::Engine(GameBoard ^gb, Graphics^ g)
 void Engine::init()
 {
 	drawBoard();
-	
+	drawSelected(selected);
+	//selectedCell =0;
 }
 
 void Engine::draw(int pX, int pY)
@@ -40,11 +41,11 @@ void Engine::generateBalls()
 	random = gcnew Random();
 	for(int i = 0; i < 3 && gameboard->getNumFreeCells() > 0; i++)
 	{
-	int type = random->Next(1, 6);
-	int point = random->Next(gameboard->getNumFreeCells());
-	Cell freeCell = gameboard->getFreeCell(point);
-	gameboard->addBall(freeCell.x, freeCell.y, type);
-	gameboard->checkLines(freeCell.x, freeCell.y, type);	
+		int type = random->Next(1, 6);
+		int point = random->Next(gameboard->getNumFreeCells());
+		Cell freeCell = gameboard->getFreeCell(point);
+		gameboard->addBall(freeCell.x, freeCell.y, type);
+		gameboard->checkLines(freeCell.x, freeCell.y, type);	
 	}
 	gameboard->updateRollBack();
 	gameboard->updateFreeCells();
@@ -53,15 +54,41 @@ void Engine::generateBalls()
 
 void Engine::selectOrMove(int x, int y)
 {
+	int pX = x;
+	int pY = y;
+	if(gameboard->checkCellType(x, y) != (int)Shapes::positionFree)
+	{
+		if(selectedCell == 0)
+		{
+			selectedCell = new Cell();
+		}
+		selectedCell->x = x;
+		selectedCell->y = y;
+	}
+	else if(!selectedCell)
+	{
+		return;
+	}
+	else
+	{
+		Cell *b = new Cell();
+		b->x = x;
+		b->y = y;
+		delete b;
+		b = 0;
+		delete selectedCell;
+		selectedCell = 0;
+	}
 
 
 }
 
 void Engine::drawSelected(bool selected)
 {
-	drawBoard();
-	if(selected && selectedCell->X && selectedCell->Y !=0)
-	{
-		draw(selectedCell->X, selectedCell->Y);
-	}
+	
+	   if(selected && selectedCell !=0) 
+	   {
+		   draw(selectedCell->x, selectedCell->y);
+
+	   }
 }

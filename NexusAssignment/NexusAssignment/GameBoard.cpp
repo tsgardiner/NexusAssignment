@@ -68,10 +68,9 @@ void GameBoard::boardRollBack()
 
 void GameBoard::updateFreeCells()
 {
- for(int i =0; i < BOARD_HEIGHT; i++)
-	{
-		for(int j = 0; j < BOARD_WIDTH; j++)
-		{
+	freeCells.clear();
+	for(int i =0; i < BOARD_HEIGHT; i++){
+		for(int j = 0; j < BOARD_WIDTH; j++){
 			if(board[i,j] == (int)Shapes::positionFree)
 			{
 			Cell ball = {i, j};
